@@ -1,0 +1,817 @@
+$primary-clr: #4d2326;
+$secondary-clr: #debd95;
+$active-clr: #833f0b;
+$yellow-clr: #fdd837;
+$h-header: 70px;
+$h-header-mobile: 50px;
+$blue: #30b8ed;
+$text-gray: #cccccc;
+$white: #fcf3ee;
+$font-family-Sans: 'Noto Sans TC', 'Helvetica Neue', sans-serif;
+$font-clamp-h1: clamp(1rem, 3vw, 3rem);
+$font-clamp-h2: clamp(1.5rem, 2vw, 2.5rem);
+$font-clamp-h3: clamp(1rem, 3vw, 2rem);
+$font-clamp-h4: clamp(1rem, 1.9vw, 1.7rem);
+$font-clamp-h5: clamp(1rem, 1.5vw, 1.5rem);
+$font-clamp-h6: clamp(1rem, 1.2vw, 1.3rem);
+$font-clamp-span: clamp(1rem, 1vw, 1.3rem);
+$font-clamp-p: clamp(10px, 1.2vw, 14px);
+$font-clamp-strong: clamp(1.5rem, 4vw, 5rem);
+$font-clamp-small: clamp(10px, 1vw, 13px);
+
+@import 'normalize';
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lisu+Bosa:wght@200;300;500&family=Noto+Sans+TC:wght@100;300;400;500;700&display=swap');
+
+/* ------------@共用------------ */
+
+html {
+  font-family: $font-family-Sans;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+h6 {
+  font-size: $font-clamp-h6;
+}
+h5 {
+  font-size: $font-clamp-h5;
+}
+h4 {
+  font-size: $font-clamp-h4;
+}
+h3 {
+  font-size: $font-clamp-h3;
+}
+
+h2, h1 {
+  font-size: $font-clamp-h2;
+}
+
+span {
+  font-size: $font-clamp-span;
+}
+p {
+  font-size: $font-clamp-p;
+}
+
+section {
+  color: white;
+  width: 100vw;
+  padding: 10vh 0 2rem 0;
+  height: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  .title_img_wrap {
+    width: 100%;
+    display: flex;
+
+    justify-content: center;
+    img {
+      width: 50%;
+      max-width: 280px;
+    }
+  }
+
+  .sticker_center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20vw;
+    min-width: 150px;
+    max-width: 300px;
+  }
+
+  .sticker_right {
+    transform: rotate(-10deg);
+    position: absolute;
+    bottom: -20%;
+    right: -4%;
+    width: 25vw;
+    min-width: 200px;
+    max-width: 400px;
+  }
+  .sticker_left {
+    transform: rotate(10deg);
+    position: absolute;
+    bottom: -20%;
+    left: -4%;
+    width: 25vw;
+    min-width: 200px;
+    max-width: 400px;
+  }
+}
+
+/* ------------@body------------ */
+
+body {
+  background-color: $primary-clr;
+  letter-spacing: 2px;
+  line-height: 1.2;
+  &.loaded {
+    #loader {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+}
+
+#page_container {
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+}
+
+/* ------------@burger------------ */
+
+#navopen {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  right: 20px;
+  top: 13px;
+  div {
+    position: relative;
+    width: 30px;
+    height: 20px;
+    border-radius: 100%;
+    i {
+      width: 100%;
+      height: 3px;
+      background-color: white;
+      box-shadow: 0px 0px 2px $primary-clr;
+      display: block;
+      border-radius: 100px;
+      top: 50%;
+      position: absolute;
+      margin: -5px 0 0;
+      transition: all 0.2s;
+      &:nth-of-type(1) {
+        margin: -8px 0 0;
+      }
+      &:nth-of-type(2) {
+        margin: 0px 0 0;
+      }
+      &:nth-of-type(3) {
+        margin: 8px 0 0;
+      }
+    }
+  }
+}
+
+header.opennav #navopen div i {
+  transform-origin: center;
+  &:nth-of-type(1) {
+    transform: translateY(8px) rotate(45deg);
+    transform-origin: center;
+  }
+  &:nth-of-type(2) {
+    transform: scale(0);
+    transform-origin: center;
+  }
+  &:nth-of-type(3) {
+    transform: translateY(-8px) rotate(-45deg);
+    transform-origin: center;
+  }
+}
+
+/* ------------@head------------ */
+
+body.show_nav .head_wrap {
+  transform: translateY(0);
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 990;
+}
+
+.head_wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: $h-header;
+  padding: 0 2rem;
+  background-color: $active-clr;
+  backdrop-filter: blur(3px);
+  transform: translateY(-100%);
+  transition: all 0.5s ease;
+
+  &.on_top {
+    background-color: $primary-clr;
+    backdrop-filter: blur(8px);
+    color: $primary-clr;
+    transition: all 0.5s ease;
+  }
+
+  #logo_ul {
+    display: flex;
+    align-items: center;
+
+    > li {
+      display: flex;
+      font-size: $font-clamp-h6;
+      margin: 0 1.2vw;
+      align-items: center;
+      font-weight: 500;
+
+      a {
+        color: $white;
+        display: flex;
+        position: relative;
+        text-decoration: none;
+
+        &::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: -6px;
+          width: 100%;
+          height: 2px;
+          transform: scale(0, 1);
+          transform-origin: right top;
+          background-color: $white;
+          transition: transform 0.3s ease-out;
+        }
+
+        &.active,
+        &:hover {
+          color: $yellow-clr;
+          transition: all 0.3s ease-in-out;
+        }
+
+        &.active::after,
+        &:hover::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: -6px;
+          width: 100%;
+          height: 2px;
+          transform: scale(1, 1);
+          transform-origin: left top;
+          background-color: $yellow-clr;
+          transition: transform 0.3s ease-out, background-color 0.3s ease-out;
+        }
+      }
+    }
+  }
+
+  &.on_top #logo_ul > li:hover a span {
+    color: $yellow-clr;
+  }
+
+  img.img_nmns_mobile {
+    display: none;
+  }
+
+  small {
+    display: none;
+  }
+}
+
+#logo {
+  display: flex;
+  width: auto;
+  align-items: center;
+  img {
+    height: 2.5rem;
+  }
+}
+
+/* ------------@loader------------ */
+
+#loader {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 991;
+  background-color: #000;
+  transition: opacity 1s 0.5s;
+  div {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  img.loaderStone {
+    opacity: 0;
+    width: 300px;
+    top: $h-header;
+    filter: grayscale(1);
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+  }
+  span {
+    color: #fff;
+    position: absolute;
+    bottom: 40dvh;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 1.4rem;
+  }
+}
+
+/* ------------@banner------------ */
+
+#banner {
+  padding: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  .empty {
+    height: 70px;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    height: 3rem;
+    background: linear-gradient(0deg, #debd95 0%, rgba(222, 189, 149, 0) 100%);
+  }
+
+  .sticker_nmns {
+    position: absolute;
+    top: calc($h-header + 2rem);
+    left: 2rem;
+    width: 20vw;
+    min-width: 100px;
+    max-width: 200px;
+  }
+
+  .sticker_main {
+    position: absolute;
+    width: 50%;
+    max-width: 520px;
+    top: calc($h-header + 20vh);
+  }
+
+  .sticker_main_mobile {
+    display: none;
+  }
+
+  .img_banner {
+    position: relative;
+    background-image: url('https://project.popworld.cc/NMNSLanding/img/banner_bg.webp');
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+
+    img.stone {
+      top: 0;
+      width: 300px;
+      left: 50%;
+      transform: translateX(-50%);
+      position: absolute;
+    }
+    img.light {
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      position: absolute;
+    }
+    img.character1 {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30%;
+      max-width: 500px;
+    }
+    img.character2 {
+      position: absolute;
+      bottom: 27%;
+      right: 0%;
+      width: 30%;
+      max-width: 350px;
+    }
+    img.character3 {
+      position: absolute;
+      bottom: 20%;
+      left: 13%;
+      width: 30%;
+      max-width: 300px;
+    }
+    img.character4 {
+      position: absolute;
+      bottom: 45%;
+      left: -1%;
+      width: 30%;
+      max-width: 280px;
+    }
+  }
+}
+
+/* ------------@intro------------ */
+
+#intro {
+  height: 50%;
+  padding: 3rem 0;
+  color: black;
+  position: relative;
+  background-image: url('https://project.popworld.cc/NMNSLanding/img/bg_intro.png');
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: cover;
+  width: 100%;
+  max-height: 400px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  .text_wrap {
+    z-index: 1;
+    h2 {
+      color: $primary-clr;
+    }
+    p {
+      font-size: $font-clamp-p;
+      line-height: 1.5;
+    }
+  }
+
+  .sticker_left {
+    transform: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 20vw;
+    min-width: 100px;
+    max-width: 200px;
+  }
+
+  .sticker_right {
+    transform: none;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 20vw;
+    min-width: 100px;
+    max-width: 200px;
+  }
+}
+
+/* ------------@feature------------ */
+
+#feature {
+  height: auto;
+  min-height: 100vh;
+  background-color: $white;
+  background-image: url('https://project.popworld.cc/NMNSLanding/img/bg_noise.png');
+  .card_wrap {
+    width: 70%;
+    margin: auto;
+    margin-top: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    justify-content: center;
+    height: 100%;
+    .card {
+      color: black;
+      font-weight: bold;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      aspect-ratio: 3/4;
+      width: 20%;
+      background-image: url('https://project.popworld.cc/NMNSLanding/img/feature_card.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      will-change: transform;
+      span {
+        font-size: $font-clamp-h5;
+        margin-top: auto;
+        transform: translateX(5px);
+        margin-bottom: 2.5vw;
+        pointer-events: none;
+        letter-spacing: 0.5px;
+      }
+      &:hover {
+        animation: headShake 1s ease 1;
+        animation-fill-mode: both;
+      }
+      img {
+        width: 70%;
+        margin: auto auto 0rem auto;
+        will-change: transform;
+      }
+    }
+  }
+}
+
+@keyframes headShake {
+  0% {
+    transform: translateX(0);
+  }
+
+  12.5% {
+    transform: translateX(-6px) rotateY(-9deg) skewY(1deg);
+  }
+
+  37.5% {
+    transform: translateX(5px) rotateY(4.5deg) skewY(-1deg);
+  }
+
+  62.5% {
+    transform: translateX(-3px) rotateY(-2.25deg) skewY(0);
+  }
+
+  87.5% {
+    transform: translateX(2px) rotateY(3deg);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.headShake {
+  animation-duration: 0.8s;
+  animation-timing-function: cubic-bezier(0, 0.23, 1, 0.71);
+  animation-name: headShake;
+  transform-origin: center bottom;
+  animation-iteration-count: infinite;
+}
+
+/* ------------@story------------ */
+
+#story {
+  height: 50vh;
+  display: flex;
+  text-align: center;
+  max-height: 400px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url('https://project.popworld.cc/NMNSLanding/img/bg_story.png');
+  .text_wrap {
+    line-height: 1.4;
+    font-weight: 500;
+    margin: auto;
+    p {
+      font-size: $font-clamp-h6;
+    }
+  }
+  h1 {
+    position: absolute;
+    left: 200vw;
+  }
+}
+
+/* ------------@instruction------------ */
+#instruction {
+  height: 80vh;
+  min-height: 600px;
+  position: relative;
+  background-color: $secondary-clr;
+  background-image: url('https://project.popworld.cc/NMNSLanding/img/bg_noise.png');
+
+  .content {
+    position: absolute;
+    left: 50%;
+    top: 22%;
+    transform: translateX(-50%);
+    width: 50%;
+    margin: auto;
+    height: 80vh;
+    padding: 2rem;
+    min-width: 500px;
+    display: flex;
+    .steps {
+      width: 50%;
+      height: 100%;
+      margin-right: 2rem;
+      .step {
+        cursor: pointer;
+        position: relative;
+        color: $primary-clr;
+        display: flex;
+        background-color: transparent;
+        align-items: center;
+        font-weight: 500;
+        border-bottom: 1px solid $secondary-clr;
+        padding: 1.2rem;
+        padding-left: 50px;
+        transition: 0.2s all ease;
+        will-change: font-size, color;
+
+        &::before {
+          font-size: 14px;
+          font-weight: bold;
+          font-family: lisu-bosa;
+          content: attr(data-num);
+          position: absolute;
+          left: 10px;
+          line-height: 24px;
+          width: 24px;
+          background-color: $primary-clr;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 24px;
+          color: white;
+          transform: scale(1);
+          will-change: transform;
+          transition: 0.2s all ease;
+        }
+        &:last-child {
+          border-bottom: none;
+        }
+
+        &:hover {
+          color: $active-clr;
+          border-radius: 1rem;
+          background-color: $white;
+          font-size: 120%;
+          transition: 0.2s all ease;
+          border-bottom: 2px solid $secondary-clr;
+          &::before {
+            background-color: $active-clr;
+            width: 30px;
+            height: 30px;
+            transition: 0.2s all ease;
+          }
+          &:last-child {
+            border-bottom: none;
+          }
+        }
+      }
+    }
+    .previews {
+      height: 80%;
+      min-height: 400px;
+      margin: 0 auto;
+      border: 4px solid $active-clr;
+      background-color: black;
+      border-radius: 1rem;
+      aspect-ratio: 1/1.95;
+      overflow: hidden;
+      .preview_img {
+        width: 100%;
+        height: 100%;
+        background-image: url('https://project.popworld.cc/NMNSLanding/img/step0.jpg');
+        background-size: cover;
+        background-position-x: center;
+        background-position-y: top;
+        background-repeat: no-repeat;
+
+        opacity: 1;
+        transition: opacity 0.2s;
+      }
+    }
+  }
+
+  .content_mobile {
+    display: none;
+  }
+
+  .sticker_right {
+    width: 20vw;
+  }
+}
+
+/* ------------@downloads------------ */
+
+#downloads {
+  background-color: $white;
+  text-align: center;
+  padding-bottom: 2rem;
+  .content {
+    display: flex;
+    color: #000;
+    width: 50%;
+    height: auto;
+    margin: auto;
+    flex-direction: column;
+    align-items: center;
+
+    h5 {
+      font-weight: normal;
+      color: $active-clr;
+    }
+
+    .qrcode {
+      width: 130px;
+      margin-bottom: 10px;
+      border: 1rem solid $active-clr;
+      border-radius: 1.1rem;
+    }
+
+    h4.app_name {
+      font-weight: normal;
+      margin: 0;
+    }
+
+    .app_links {
+      margin-top: 1.2rem;
+      display: flex;
+      gap: 1rem;
+      > div {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        img {
+          aspect-ratio: 160/47;
+          margin-bottom: 7px;
+        }
+        small {
+          margin-top: auto;
+        }
+      }
+    }
+  }
+
+  .sticker_left,
+  .sticker_right {
+    bottom: -15%;
+  }
+}
+
+footer {
+  padding: 2rem;
+  background-color: $primary-clr;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: $white;
+  font-weight: 500;
+  p {
+    margin: 1rem 0;
+  }
+  span {
+    font-size: $font-clamp-p;
+  }
+  img {
+    width: 25vw;
+    max-width: 270px;
+  }
+}
+
+#fixedContent {
+  position: fixed;
+  left: 0;
+  pointer-events: none;
+  background-color: transparent;
+  bottom: 0;
+  height: 50%;
+  width: 100%;
+  z-index: 1;
+  > img {
+    position: absolute;
+    max-width: 300px;
+    width: 25vw;
+    bottom: -100px;
+    opacity: 0;
+  }
+
+  img.sticker_instruction {
+    position: absolute;
+    right: -2%;
+    width: 20vw;
+    bottom: -160px;
+  }
+
+  img.sticker_feature_left {
+    left: -2%;
+  }
+
+  img.sticker_feature_right {
+    right: -2%;
+  }
+
+  img.sticker_downloads_left {
+    left: -2%;
+  }
+
+  img.sticker_downloads_right {
+    right: -2%;
+  }
+}
+
+@import 'rwd';
